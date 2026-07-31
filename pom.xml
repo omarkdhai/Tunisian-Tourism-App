@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.tourism</groupId>
+  <artifactId>tunisia-tourism-backend</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>tunisia-tourism-backend</name>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-database-postgresql</artifactId>
+        <version>10.10.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+    <module>discovery-server</module>
+    <module>config-server</module>
+    <module>api-gateway</module>
+    <module>user-service</module>
+    <module>place-service</module>
+    <module>trip-planner-service</module>
+    <module>review-service</module>
+    <module>budget-service</module>
+    <module>notification-service</module>
+    <module>transportation-service</module>
+    <module>guide-service</module>
+  </modules>
+</project>

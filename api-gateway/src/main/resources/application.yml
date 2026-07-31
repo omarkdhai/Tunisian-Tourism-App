@@ -1,0 +1,86 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=0
+
+        - id: place-service
+          uri: lb://place-service
+          predicates:
+            - Path=/api/places/**
+          filters:
+            - StripPrefix=0
+
+        - id: trip-planner-service
+          uri: lb://trip-planner-service
+          predicates:
+            - Path=/api/trips/**
+          filters:
+            - StripPrefix=0
+
+        - id: review-service
+          uri: lb://review-service
+          predicates:
+            - Path=/api/reviews/**
+          filters:
+            - StripPrefix=0
+
+        - id: budget-service
+          uri: lb://budget-service
+          predicates:
+            - Path=/api/budget/**
+          filters:
+            - StripPrefix=0
+
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/notifications/**
+          filters:
+            - StripPrefix=0
+
+        - id: transportation-service
+          uri: lb://transportation-service
+          predicates:
+            - Path=/api/transport/**
+          filters:
+            - StripPrefix=0
+
+        - id: guide-service
+          uri: lb://guide-service
+          predicates:
+            - Path=/api/guides/**
+          filters:
+            - StripPrefix=0
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:9090/realms/tunisia-tourism}
+          jwk-set-uri: ${KEYCLOAK_JWK_URI:http://localhost:9090/realms/tunisia-tourism/protocol/openid-connect/certs}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG

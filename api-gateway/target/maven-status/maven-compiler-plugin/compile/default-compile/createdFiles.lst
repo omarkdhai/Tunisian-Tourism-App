@@ -1,0 +1,3 @@
+com\tourism\gateway\config\CorsConfig.class
+com\tourism\gateway\config\SecurityConfig.class
+com\tourism\gateway\ApiGatewayApplication.class

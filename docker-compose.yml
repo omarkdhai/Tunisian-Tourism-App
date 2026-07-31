@@ -1,0 +1,256 @@
+version: '3.8'
+
+services:
+  # Infrastructure
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    image: tourism-postgis-pgvector:15
+    container_name: tourism-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tourism_db
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./init-dbs.sh:/docker-entrypoint-initdb.d/init-dbs.sh
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.0
+    container_name: tourism-keycloak
+    command: start-dev
+    ports:
+      - "9090:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  # Core Backend Services
+  discovery-server:
+    build: ./discovery-server
+    container_name: discovery-server
+    ports:
+      - "8761:8761"
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  config-server:
+    build: ./config-server
+    container_name: config-server
+    ports:
+      - "8888:8888"
+    depends_on:
+      - discovery-server
+    environment:
+      - EUREKA_HOST=discovery-server
+    volumes:
+      - ./config-repo:/app/config-repo
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery-server
+      - config-server
+      - keycloak
+    environment:
+      - EUREKA_HOST=discovery-server
+      - CONFIG_SERVER_HOST=config-server
+      - KEYCLOAK_ISSUER_URI=http://localhost:9090/realms/tunisia-tourism
+      - KEYCLOAK_JWK_URI=http://keycloak:8080/realms/tunisia-tourism/protocol/openid-connect/certs
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-server
+      - config-server
+      - postgres
+      - keycloak
+    environment:
+      - EUREKA_HOST=discovery-server
+      - CONFIG_SERVER_HOST=config-server
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - KEYCLOAK_ISSUER_URI=http://localhost:9090/realms/tunisia-tourism
+      - KEYCLOAK_JWK_URI=http://keycloak:8080/realms/tunisia-tourism/protocol/openid-connect/certs
+    networks:
+      - tourism-network
+    restart: unless-stopped
+    
+  place-service:
+    build: ./place-service
+    container_name: place-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery-server
+      - config-server
+      - postgres
+      - keycloak
+    environment:
+      - EUREKA_HOST=discovery-server
+      - CONFIG_SERVER_HOST=config-server
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - KEYCLOAK_ISSUER_URI=http://localhost:9090/realms/tunisia-tourism
+      - KEYCLOAK_JWK_URI=http://keycloak:8080/realms/tunisia-tourism/protocol/openid-connect/certs
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  trip-planner-service:
+    build: ./trip-planner-service
+    container_name: trip-planner-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - discovery-server
+      - config-server
+      - postgres
+      - keycloak
+    environment:
+      - EUREKA_HOST=discovery-server
+      - CONFIG_SERVER_HOST=config-server
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - KEYCLOAK_ISSUER_URI=http://localhost:9090/realms/tunisia-tourism
+      - KEYCLOAK_JWK_URI=http://keycloak:8080/realms/tunisia-tourism/protocol/openid-connect/certs
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  review-service:
+    build: ./review-service
+    container_name: review-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - discovery-server
+      - config-server
+      - postgres
+      - keycloak
+    environment:
+      - EUREKA_HOST=discovery-server
+      - CONFIG_SERVER_HOST=config-server
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - KEYCLOAK_ISSUER_URI=http://localhost:9090/realms/tunisia-tourism
+      - KEYCLOAK_JWK_URI=http://keycloak:8080/realms/tunisia-tourism/protocol/openid-connect/certs
+    networks:
+      - tourism-network
+    restart: unless-stopped
+    
+  budget-service:
+    build: ./budget-service
+    container_name: budget-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - discovery-server
+      - config-server
+      - postgres
+      - keycloak
+    environment:
+      - EUREKA_HOST=discovery-server
+      - CONFIG_SERVER_HOST=config-server
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - KEYCLOAK_ISSUER_URI=http://localhost:9090/realms/tunisia-tourism
+      - KEYCLOAK_JWK_URI=http://keycloak:8080/realms/tunisia-tourism/protocol/openid-connect/certs
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  notification-service:
+    build: ./notification-service
+    container_name: notification-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      - discovery-server
+      - config-server
+      - postgres
+      - keycloak
+    environment:
+      - EUREKA_HOST=discovery-server
+      - CONFIG_SERVER_HOST=config-server
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - KEYCLOAK_ISSUER_URI=http://localhost:9090/realms/tunisia-tourism
+      - KEYCLOAK_JWK_URI=http://keycloak:8080/realms/tunisia-tourism/protocol/openid-connect/certs
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  transportation-service:
+    build: ./transportation-service
+    container_name: transportation-service
+    ports:
+      - "8087:8087"
+    depends_on:
+      - discovery-server
+      - config-server
+    environment:
+      - EUREKA_HOST=discovery-server
+      - CONFIG_SERVER_HOST=config-server
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+  guide-service:
+    build: ./guide-service
+    container_name: guide-service
+    ports:
+      - "8088:8088"
+    depends_on:
+      - discovery-server
+      - config-server
+    environment:
+      - EUREKA_HOST=discovery-server
+      - CONFIG_SERVER_HOST=config-server
+    networks:
+      - tourism-network
+    restart: unless-stopped
+
+networks:
+  tourism-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  keycloak-data:
