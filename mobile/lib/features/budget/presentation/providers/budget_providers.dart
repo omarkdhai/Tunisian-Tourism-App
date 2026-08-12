@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/network/providers.dart';
-import '../repositories/budget_repository.dart';
-import '../models/budget.dart';
+import '../../data/repositories/budget_repository.dart';
+import '../../data/models/budget.dart';
 
 final budgetRepositoryProvider = Provider<BudgetRepository>((ref) {
   return BudgetRepository(ref.watch(dioClientProvider));

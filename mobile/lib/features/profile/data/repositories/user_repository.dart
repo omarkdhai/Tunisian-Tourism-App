@@ -16,7 +16,7 @@ class UserRepository {
         firstName: 'Ahmed',
         lastName: 'Ben Ali',
         email: 'ahmed@example.com',
-        avatarUrl: 'https://i.pravatar.cc/150?img=47',
+        avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=tourist',
         preferredLanguage: 'FR',
         preferredCurrency: 'TND',
         travelerType: 'COUPLE',

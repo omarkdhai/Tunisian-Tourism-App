@@ -81,7 +81,7 @@ class Trip {
     required this.airportCode,
     required this.status,
     required this.days,
-    this.imageUrl = 'https://images.unsplash.com/photo-1518639845127-064c4bb9cd3b?auto=format&fit=crop&w=400',
+    this.imageUrl = 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=400',
   });
 
   factory Trip.fromJson(Map<String, dynamic> json) {

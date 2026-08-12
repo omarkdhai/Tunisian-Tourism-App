@@ -19,7 +19,7 @@ class PlaceDetailsScreen extends StatelessWidget {
               background: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage('https://images.unsplash.com/photo-1540304677765-b7781fcae11d?auto=format&fit=crop&q=80&w=600'),
+                    image: NetworkImage('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=600'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -182,7 +182,7 @@ class PlaceDetailsScreen extends StatelessWidget {
                             '8 days • from \$659/person',
                             4.6,
                             56,
-                            'https://images.unsplash.com/photo-1518639845127-064c4bb9cd3b?auto=format&fit=crop&w=400',
+                            'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=400',
                           ),
                           _buildUpcomingTourCard(
                             'Beach Paradise',

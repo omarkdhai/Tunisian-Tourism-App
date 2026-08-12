@@ -20,7 +20,7 @@ class Place {
     required this.latitude,
     required this.averageRating,
     required this.reviewCount,
-    this.imageUrl = 'https://images.unsplash.com/photo-1540304677765-b7781fcae11d?auto=format&fit=crop&q=80&w=600',
+    this.imageUrl = 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=600',
   });
 
   factory Place.fromJson(Map<String, dynamic> json) {

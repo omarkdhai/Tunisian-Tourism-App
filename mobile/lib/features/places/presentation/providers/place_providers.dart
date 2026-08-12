@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/network/providers.dart';
-import '../repositories/place_repository.dart';
-import '../models/place.dart';
+import '../../data/repositories/place_repository.dart';
+import '../../data/models/place.dart';
 
 final placeRepositoryProvider = Provider<PlaceRepository>((ref) {
   final dio = ref.watch(dioClientProvider);

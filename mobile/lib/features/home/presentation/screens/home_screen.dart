@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const CircleAvatar(
                     radius: 22,
-                    backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=47'),
+                    backgroundImage: NetworkImage('https://api.dicebear.com/7.x/avataaars/svg?seed=tourist'),
                   ),
                 ],
               ),
@@ -107,7 +107,7 @@ class HomeScreen extends StatelessWidget {
 
               // 4. Large Place Card (Discover / Recommended)
               _buildPlaceCard(
-                imageUrl: 'https://images.unsplash.com/photo-1540304677765-b7781fcae11d?auto=format&fit=crop&q=80&w=600',
+                imageUrl: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=600',
                 title: 'Djerba Island',
                 country: 'Tunisia',
                 rating: 5.0,
@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     _buildSmallPlaceCard(
-                      imageUrl: 'https://images.unsplash.com/photo-1574482596549-33b0fd379d74?auto=format&fit=crop&w=400',
+                      imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400',
                       title: 'Sidi Bou Said',
                       duration: '2 Days',
                       price: '\$150/person',
@@ -140,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                       reviews: 80,
                     ),
                     _buildSmallPlaceCard(
-                      imageUrl: 'https://images.unsplash.com/photo-1590069358359-994c9ad6a617?auto=format&fit=crop&w=400',
+                      imageUrl: 'https://images.unsplash.com/photo-1504672281656-e4981d778ec7?auto=format&fit=crop&w=400',
                       title: 'Sahara Desert',
                       duration: '3 Days',
                       price: '\$350/person',

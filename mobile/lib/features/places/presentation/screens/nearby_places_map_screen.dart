@@ -20,11 +20,11 @@ class _NearbyPlacesMapScreenState extends ConsumerState<NearbyPlacesMapScreen> {
 
   // Mock places for Tunisia covering different regions
   final List<Place> _mockPlaces = [
-    Place(id: '1', name: 'El Djem Amphitheatre', description: 'UNESCO World Heritage Site', category: 'MONUMENT', governorate: 'Mahdia', longitude: 10.7069, latitude: 35.2967, averageRating: 4.9, reviewCount: 380, imageUrl: 'https://images.unsplash.com/photo-1589568058-a7e4f57bc1f8?auto=format&fit=crop&w=400'),
+    Place(id: '1', name: 'El Djem Amphitheatre', description: 'UNESCO World Heritage Site', category: 'MONUMENT', governorate: 'Mahdia', longitude: 10.7069, latitude: 35.2967, averageRating: 4.9, reviewCount: 380, imageUrl: 'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?auto=format&fit=crop&w=400'),
     Place(id: '2', name: 'Djerba Beach', description: 'Tropical paradise beach', category: 'BEACH', governorate: 'Medenine', longitude: 10.8512, latitude: 33.8091, averageRating: 4.7, reviewCount: 512, imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400'),
-    Place(id: '3', name: 'Sidi Bou Said', description: 'Blue and white village', category: 'CULTURE', governorate: 'Tunis', longitude: 10.3422, latitude: 36.8703, averageRating: 4.8, reviewCount: 900, imageUrl: 'https://images.unsplash.com/photo-1574482596549-33b0fd379d74?auto=format&fit=crop&w=400'),
+    Place(id: '3', name: 'Sidi Bou Said', description: 'Blue and white village', category: 'CULTURE', governorate: 'Tunis', longitude: 10.3422, latitude: 36.8703, averageRating: 4.8, reviewCount: 900, imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=400'),
     Place(id: '4', name: 'Tozeur Oasis', description: 'Gateway to the Sahara', category: 'NATURE', governorate: 'Tozeur', longitude: 8.1297, latitude: 33.9197, averageRating: 4.6, reviewCount: 290, imageUrl: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=400'),
-    Place(id: '5', name: 'Medina of Tunis', description: 'Ancient walled city', category: 'CULTURE', governorate: 'Tunis', longitude: 10.1698, latitude: 36.7976, averageRating: 4.7, reviewCount: 1100, imageUrl: 'https://images.unsplash.com/photo-1591111544400-8ce2f3c5f7c2?auto=format&fit=crop&w=400'),
+    Place(id: '5', name: 'Medina of Tunis', description: 'Ancient walled city', category: 'CULTURE', governorate: 'Tunis', longitude: 10.1698, latitude: 36.7976, averageRating: 4.7, reviewCount: 1100, imageUrl: 'https://images.unsplash.com/photo-1539650116574-8efeb4270b4e?auto=format&fit=crop&w=400'),
     Place(id: '6', name: 'Hammamet Beach', description: 'Mediterranean beach resort', category: 'BEACH', governorate: 'Nabeul', longitude: 10.6186, latitude: 36.4075, averageRating: 4.5, reviewCount: 640, imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400'),
   ];
 

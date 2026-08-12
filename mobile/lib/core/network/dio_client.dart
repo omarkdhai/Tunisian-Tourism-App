@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class DioClient {
   final Dio _dio;
   final FlutterSecureStorage _storage;
 
-  // Since emulator runs locally, loopback to the host machine API Gateway
-  // For iOS Simulator, this would be 'http://localhost:8080/api'
-  static const String _baseUrl = 'http://10.0.2.2:8080/api'; 
+  // Android emulator maps host to 10.0.2.2; web/iOS/desktop use localhost
+  static String get _baseUrl => kIsWeb
+      ? 'http://localhost:8080/api'
+      : 'http://10.0.2.2:8080/api'; 
 
   DioClient(this._storage) : _dio = Dio(BaseOptions(
     baseUrl: _baseUrl,

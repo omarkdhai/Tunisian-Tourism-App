@@ -1,138 +1,419 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
+  static const Color backgroundTop = Color(0xFFEAF6FC);
+  static const Color backgroundBottom = Color(0xFFF8FCFE);
+
+  static const Color textDark = Color(0xFF222222);
+  static const Color textGrey = Color(0xFF777777);
+  static const Color textLightGrey = Color(0xFFA0A0A0);
+
+  static const Color primaryBlue = Color(0xFF079BEF);
+  static const Color borderColor = Color(0xFFE9EDF0);
+
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [backgroundTop, backgroundBottom, Colors.white],
+            stops: [0.0, 0.45, 1.0],
+          ),
+        ),
+
+        child: Stack(
           children: [
-            // Hero image top half
-            Expanded(
-              flex: 5,
-              child: Container(
-                width: double.infinity,
-                margin: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                      'https://images.unsplash.com/photo-1574482596549-33b0fd379d74?auto=format&fit=crop&w=800',
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32),
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [Colors.black.withOpacity(0.1), Colors.black.withOpacity(0.55)],
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(28),
-                  alignment: Alignment.bottomLeft,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Tunisia', style: GoogleFonts.inter(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w500)),
-                      Text('Sidi Bou Said', style: GoogleFonts.inter(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-              ),
+            // =========================
+            // TOP VIDEO SECTION
+            // =========================
+            //
+            // This area is intentionally empty.
+            //
+            // Later you can replace this section with:
+            //
+            // VideoPlayer(controller)
+            //
+            // The authentication card will remain
+            // over the bottom part of the screen.
+            //
+
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              height: screenHeight * 0.43,
+              child: const SizedBox(),
             ),
 
-            // Bottom login panel
-            Expanded(
-              flex: 4,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Welcome to', style: GoogleFonts.inter(fontSize: 16, color: Colors.grey.shade600)),
-                    Text('TunTrip', style: GoogleFonts.inter(fontSize: 34, fontWeight: FontWeight.bold, color: const Color(0xFF111827))),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Discover Tunisia like never before.\nPersonalized trips powered by AI.',
-                      style: GoogleFonts.inter(fontSize: 15, color: Colors.grey.shade500, height: 1.5),
-                    ),
-                    const Spacer(),
-                    // Login with Google
-                    _buildSocialButton(
-                      onTap: () => context.push('/preference-swipe'),
-                      label: 'Continue with Google',
-                      icon: '🔍',
-                      bgColor: Colors.white,
-                      textColor: const Color(0xFF111827),
-                      hasBorder: true,
-                    ),
-                    const SizedBox(height: 12),
-                    // Login with Apple
-                    _buildSocialButton(
-                      onTap: () => context.push('/preference-swipe'),
-                      label: 'Continue with Apple',
-                      icon: '🍎',
-                      bgColor: const Color(0xFF111827),
-                      textColor: Colors.white,
-                      hasBorder: false,
-                    ),
-                    const SizedBox(height: 16),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () => context.go('/home'),
-                        child: Text(
-                          'Skip for now →',
-                          style: GoogleFonts.inter(color: Colors.grey.shade500, fontSize: 14, decoration: TextDecoration.underline),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            // =========================
+            // AUTH CARD
+            // =========================
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: _AuthCard(),
             ),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _buildSocialButton({
-    required VoidCallback onTap,
-    required String label,
-    required String icon,
-    required Color bgColor,
-    required Color textColor,
-    required bool hasBorder,
-  }) {
+// ============================================================
+// AUTH CARD
+// ============================================================
+
+class _AuthCard extends StatelessWidget {
+  const _AuthCard();
+
+  static const Color textDark = Color(0xFF222222);
+  static const Color textGrey = Color(0xFF777777);
+  static const Color textLightGrey = Color(0xFFA0A0A0);
+
+  static const Color primaryBlue = Color(0xFF079BEF);
+  static const Color borderColor = Color(0xFFE9EDF0);
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Keep the card close to the reference proportions
+    final cardWidth = screenWidth > 500 ? 420.0 : screenWidth - 20;
+
+    return Container(
+      width: cardWidth,
+
+      decoration: const BoxDecoration(
+        color: Colors.white,
+
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x12000000),
+            blurRadius: 30,
+            spreadRadius: 0,
+            offset: Offset(0, -5),
+          ),
+        ],
+      ),
+
+      child: SafeArea(
+        top: false,
+
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(22, 28, 22, 22),
+
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // =================================================
+              // DRAG HANDLE
+              // =================================================
+
+              Container(
+                width: 45,
+                height: 4,
+
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE1E3E5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+
+              // =================================================
+              // WELCOME TO
+              // =================================================
+
+              Text(
+                'Welcome to',
+                textAlign: TextAlign.center,
+
+                style: GoogleFonts.barlowCondensed(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  color: textDark,
+                  height: 1,
+                ),
+              ),
+
+              const SizedBox(height: 1),
+
+              // =================================================
+              // TUNISIA
+              // =================================================
+
+              Text(
+                'Tunisia',
+                textAlign: TextAlign.center,
+
+                style: GoogleFonts.barlowCondensed(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  color: textDark,
+                  height: 1.2,
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              // =================================================
+              // DESCRIPTION
+              // =================================================
+
+              Text(
+                'Discover the vibrant energy of the\n'
+                'coast and the warmth of the Sahara.',
+
+                textAlign: TextAlign.center,
+
+                style: GoogleFonts.barlowCondensed(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: textLightGrey,
+                  height: 1.3,
+                ),
+              ),
+
+              const SizedBox(height: 28),
+
+              // =================================================
+              // CREATE ACCOUNT BUTTON
+              // =================================================
+
+              SizedBox(
+                width: double.infinity,
+                height: 41,
+
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.push('/preference-swipe');
+                  },
+
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryBlue,
+                    foregroundColor: Colors.white,
+
+                    elevation: 0,
+
+                    padding: EdgeInsets.zero,
+
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+
+                    shadowColor: Colors.transparent,
+                  ),
+
+                  child: Text(
+                    'Create Account',
+
+                    style: GoogleFonts.barlowCondensed(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 22),
+
+              // =================================================
+              // OR SIGN IN WITH
+              // =================================================
+
+              Row(
+                children: [
+                  const Expanded(
+                    child: Divider(
+                      color: Color(0xFFECEFF1),
+                      thickness: 1,
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+
+                    child: Text(
+                      'Or sign in with',
+
+                      style: GoogleFonts.barlowCondensed(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: textLightGrey,
+                      ),
+                    ),
+                  ),
+
+                  const Expanded(
+                    child: Divider(
+                      color: Color(0xFFECEFF1),
+                      thickness: 1,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 18),
+
+              // =================================================
+              // SOCIAL BUTTONS
+              // =================================================
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _SocialButton(
+                    child: SvgPicture.asset(
+                      'assets/icons/google.svg',
+                      width: 19,
+                      height: 19,
+                    ),
+
+                    onTap: () {
+                      context.push('/preference-swipe');
+                    },
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  _SocialButton(
+                    child: SvgPicture.asset(
+                      'assets/icons/apple.svg',
+                      width: 19,
+                      height: 19,
+                    ),
+
+                    onTap: () {
+                      context.push('/preference-swipe');
+                    },
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  _SocialButton(
+                    child: SvgPicture.asset(
+                      'assets/icons/facebook.svg',
+                      width: 19,
+                      height: 19,
+                    ),
+
+                    onTap: () {
+                      context.push('/preference-swipe');
+                    },
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 22),
+
+              // =================================================
+              // LOGIN
+              // =================================================
+
+              GestureDetector(
+                onTap: () {
+                  context.go('/home');
+                },
+
+                child: RichText(
+                  textAlign: TextAlign.center,
+
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Already have an account? ',
+
+                        style: GoogleFonts.barlowCondensed(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: textGrey,
+                        ),
+                      ),
+
+                      TextSpan(
+                        text: 'Log in',
+
+                        style: GoogleFonts.barlowCondensed(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: primaryBlue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================
+// SOCIAL BUTTON
+// ============================================================
+
+class _SocialButton extends StatelessWidget {
+  final Widget child;
+  final VoidCallback onTap;
+
+  const _SocialButton({
+    required this.child,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+
       child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        width: 62,
+        height: 42,
+
         decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(30),
-          border: hasBorder ? Border.all(color: Colors.grey.shade300) : null,
-          boxShadow: hasBorder
-              ? [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8, offset: const Offset(0, 2))]
-              : null,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(icon, style: const TextStyle(fontSize: 18)),
-            const SizedBox(width: 12),
-            Text(label, style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w600, color: textColor)),
+          color: Colors.white,
+
+          borderRadius: BorderRadius.circular(13),
+
+          border: Border.all(
+            color: const Color(0xFFE9EDF0),
+            width: 1,
+          ),
+
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x08000000),
+              blurRadius: 7,
+              offset: Offset(0, 2),
+            ),
           ],
+        ),
+
+        child: Center(
+          child: child,
         ),
       ),
     );

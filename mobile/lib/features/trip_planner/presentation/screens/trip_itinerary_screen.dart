@@ -68,7 +68,7 @@ class TripItineraryScreen extends StatelessWidget {
                   context, 
                   'Day 3', 
                   'Copacabana Beach', 
-                  'https://images.unsplash.com/photo-1540304677765-b7781fcae11d?auto=format&fit=crop&w=400',
+                  'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=400',
                   expanded: false,
                 ),
               ],
